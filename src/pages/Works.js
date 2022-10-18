@@ -1,9 +1,4 @@
 import React from "react";
-<<<<<<< HEAD
-
-const Works = () => {
-  return <div>Works</div>;
-=======
 import  styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { useSelector,useDispatch } from "react-redux";
@@ -106,7 +101,6 @@ const Works = () => {
 
 )
   
->>>>>>> 81e1519f2a4d81e0b5431ddbcce0389388514dac
 };
 
 export default Works;

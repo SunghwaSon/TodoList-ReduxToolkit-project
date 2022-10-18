@@ -1,12 +1,4 @@
 import React from 'react';
-<<<<<<< HEAD
-
-const WorkAdd = () => {
-  return <div>WorkAdd</div>
-}
-
-export default WorkAdd;
-=======
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTodo } from '../redux/modules/todos';
@@ -118,4 +110,3 @@ const Textarea = styled.textarea`
 const StContainer = styled.div`
   height: 100%;
 `;
->>>>>>> 81e1519f2a4d81e0b5431ddbcce0389388514dac
