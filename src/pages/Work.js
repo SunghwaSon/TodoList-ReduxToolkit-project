@@ -7,17 +7,14 @@ import styled from 'styled-components';
 const Work = () => {
   const navigate = useNavigate()
   const params = useParams()
-  // console.log(params)
   const select = useSelector(state => state)
-  // console.log(select)
   const todoList = (select.todos.todoList)
   // console.log(todoList)
   const todo = todoList.find(todo => todo.id === Number(params.id))
   // console.log(todo)
 
   const beforeContent = useRef(todo.content)
-  // beforeContent.current = todo.content
-  console.log(beforeContent)
+  // console.log(beforeContent)
   const [content, setContent] = useState(todo.content) //todo의 내용
   // console.log(todo.content)
   const [readonly, setReadOnly] = useState(true); //true 일 때 읽기 상태
