@@ -1,10 +1,4 @@
 import React from 'react';
-<<<<<<< HEAD
-
-
-const Home = () => {
-  return 
-=======
 import  styled from 'styled-components'
 
 import { Link } from 'react-router-dom'
@@ -72,7 +66,6 @@ export const Home = () => {
     </Rootbody>
   </Root>
   )
->>>>>>> 81e1519f2a4d81e0b5431ddbcce0389388514dac
 }
 
 export default Home;

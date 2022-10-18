@@ -9,9 +9,10 @@ const Work = () => {
   const params = useParams()
   const select = useSelector(state => state)
   const todoList = (select.todos.todoList)
-  const todo = todoList.find(todo => todo.id === Number(params.id))
-  const beforeContent = useRef(todo.content)
-  const [content, setContent] = useState(todo.content) //todo의 내용
+  const todo = todoList.find(todo => todo.id === params.id)
+
+  const beforeContent = useRef(todo?.content)
+  const [content, setContent] = useState(todo?.content) //todo의 내용
   const [readonly, setReadOnly] = useState(true); //true 일 때 읽기 상태
   //취소
   const handleEdit = () => {
