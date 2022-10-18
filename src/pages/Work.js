@@ -9,16 +9,10 @@ const Work = () => {
   const params = useParams()
   const select = useSelector(state => state)
   const todoList = (select.todos.todoList)
-  // console.log(todoList)
   const todo = todoList.find(todo => todo.id === Number(params.id))
-  // console.log(todo)
-
   const beforeContent = useRef(todo.content)
-  // console.log(beforeContent)
   const [content, setContent] = useState(todo.content) //todo의 내용
-  // console.log(todo.content)
   const [readonly, setReadOnly] = useState(true); //true 일 때 읽기 상태
-
   //취소
   const handleEdit = () => {
     setContent(beforeContent.current)
@@ -40,7 +34,7 @@ const Work = () => {
               rows="10" 
               maxlength="200"
               value={content}
-              onChange={(e) => setContent(e.target.value)}  //버튼을 눌렀을 때 저장.
+              onChange={(e) => setContent(e.target.value)}
             />
           )}
           { }
