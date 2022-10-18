@@ -81,7 +81,7 @@ const todos = (state = initialState, action) => {
         ...state,
         todoList : [...state.todoList.map((todo) => todo.id === action.id? 
                     {...todo, isDone : !todo.isDone} : todo)]
-      } 
+      }
 
     default:
       return {...state}
