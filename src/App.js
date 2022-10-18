@@ -5,12 +5,14 @@ import Home from './pages/Home';
 import Work from './pages/Work';
 import Works from './pages/Works';
 import WorkAdd from './pages/WorkAdd';
+import GlobalStyles from './styles/GlobalStyles';
 
 
 
 function App() {
   return (
-    <>
+  <>
+    <GlobalStyles />
     <Header/>
     <Routes>
       <Route path="/" element = {<Home />} /> 
@@ -22,7 +24,7 @@ function App() {
       <Route path="/Works/:id" element = {<Work />} />
       {/* todolist의 상세페이지 */}
     </Routes>
-    </>
+  </>
   );
 }
 

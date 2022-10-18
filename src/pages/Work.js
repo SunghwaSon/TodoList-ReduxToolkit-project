@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
@@ -14,6 +14,11 @@ const Work = () => {
   // console.log(todoList)
   const todo = todoList.find(todo => todo.id === Number(params.id))
   // console.log(todo)
+  
+  const [content, setContent] = useState(todo.content)
+  // console.log(todo.content)
+  const [readonly, setReadOnly] = useState(true);
+
 
   return (
     <AllBox>
@@ -22,11 +27,20 @@ const Work = () => {
         <WorksBtn onClick={ () => navigate('/Works')}>이전으로</WorksBtn>
       </IdBtn>
       <Title>{todo.title}</Title>
-      <BodyBox>
-        <Body>{todo.content}</Body>
-      </BodyBox>
+      <ContentBox>
+          { readonly? (
+            <ContentBox>{content}</ContentBox> 
+          ) : (
+            <TextBox
+              rows="10" 
+              maxlength="200"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}  
+            />
+          )}
+      </ContentBox>
       <UpdateBox>
-        <UpdateBtn>수정</UpdateBtn>
+        <UpdateBtn  onClick={() => setReadOnly(!readonly) }>{ readonly? '수정' : '완료' }</UpdateBtn>
       </UpdateBox>
     </AllBox>
   )
@@ -61,16 +75,6 @@ const Title = styled.div`
   font-size: 32px;
   font-weight: 700;
 `
-const BodyBox = styled.div`
-  display: flex;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: justify;
-  justify-content: space-between;
-  flex-direction: column;
-  margin-top: 50px;
-  min-height: 550px;
-`
 const Body = styled.div`
   line-height: 1.5;
   font-size: 18px;
@@ -98,6 +102,22 @@ const UpdateBtn = styled.button`
   border-radius: 8px;
   cursor: pointer;
   width: 100%;
+`
+const ContentBox = styled.div`
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  flex-direction: column;
+  margin-top: 50px;
+  min-height: 550px;
+`
+const TextBox = styled.textarea`
+  width: 100%;
+  border: 1px solid rgb(238, 238, 238);
+  padding: 12px;
+  font-size: 14px;
 `
 
 // 먼저, html, Css 모양부터 만들기
