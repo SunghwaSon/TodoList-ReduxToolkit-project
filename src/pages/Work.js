@@ -1,7 +1,12 @@
 import React from 'react';
 
 const Work = () => {
-  return <div>Work</div>
+  return (
+  <div>
+
+
+  </div>
+  )
 }
 
 export default Work;
