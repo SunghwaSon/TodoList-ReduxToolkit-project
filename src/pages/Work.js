@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
@@ -7,13 +7,17 @@ import styled from 'styled-components';
 const Work = () => {
   const navigate = useNavigate()
   const params = useParams()
-  // console.log(params)
   const select = useSelector(state => state)
-  // console.log(select)
   const todoList = (select.todos.todoList)
-  // console.log(todoList)
   const todo = todoList.find(todo => todo.id === Number(params.id))
-  // console.log(todo)
+  const beforeContent = useRef(todo.content)
+  const [content, setContent] = useState(todo.content) //todo의 내용
+  const [readonly, setReadOnly] = useState(true); //true 일 때 읽기 상태
+  //취소
+  const handleEdit = () => {
+    setContent(beforeContent.current)
+    setReadOnly(true)
+  }
 
   return (
     <AllBox>
@@ -22,11 +26,33 @@ const Work = () => {
         <WorksBtn onClick={ () => navigate('/Works')}>이전으로</WorksBtn>
       </IdBtn>
       <Title>{todo.title}</Title>
-      <BodyBox>
-        <Body>{todo.content}</Body>
-      </BodyBox>
+      <ContentBox>
+          { readonly? ( // {상태값? (ture) : (false)}
+            <ContentBox>{content}</ContentBox> 
+          ) : (
+            <TextBox
+              rows="10" 
+              maxlength="200"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+            />
+          )}
+          { }
+      </ContentBox>
       <UpdateBox>
-        <UpdateBtn>수정</UpdateBtn>
+        {readonly? (
+          //읽기 상태
+            <UpdateBtn onClick={() => setReadOnly(!readonly)}>수정</UpdateBtn>
+        ) : (
+          //수정 상태
+          <>
+            <UpdateBtn onClick={() => {
+              setReadOnly(!readonly)
+              beforeContent.current = content
+            }}>완료</UpdateBtn> 
+            <UpdateBtn onClick={handleEdit}>취소</UpdateBtn>
+          </>
+        )}
       </UpdateBox>
     </AllBox>
   )
@@ -61,20 +87,6 @@ const Title = styled.div`
   font-size: 32px;
   font-weight: 700;
 `
-const BodyBox = styled.div`
-  display: flex;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: justify;
-  justify-content: space-between;
-  flex-direction: column;
-  margin-top: 50px;
-  min-height: 550px;
-`
-const Body = styled.div`
-  line-height: 1.5;
-  font-size: 18px;
-`
 const UpdateBox = styled.div`
   width: 100%;
   display: flex;
@@ -98,6 +110,26 @@ const UpdateBtn = styled.button`
   border-radius: 8px;
   cursor: pointer;
   width: 100%;
+`
+const ContentBox = styled.div`
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  flex-direction: column;
+  margin-top: 50px;
+  min-height: 550px;
+  line-height: 1.5;
+  font-size: 18px;
+`
+const TextBox = styled.textarea`
+  width: 100%;
+  border: 1px solid rgb(238, 238, 238);
+  padding: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  font-size: 18px;
 `
 
 // 먼저, html, Css 모양부터 만들기

@@ -9,13 +9,11 @@ margin:auto;
 display:flex;
 justify-content:space-between;
 border-bottom:1px solid silver;
-
-
 `
+
 let Img = styled.img`
 width:30px;
 height:30px;
-
 `
 let H3 = styled.h3`
 width:160px;
