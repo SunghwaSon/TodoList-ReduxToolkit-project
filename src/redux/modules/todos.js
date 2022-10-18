@@ -2,6 +2,7 @@ const ADD_TODO = "ADD_TODO";
 const DELETE = "DELETE";
 const TOGGLE = "TOGGLE"
 
+
 export const addTodo = (todo) => {
   return {
     type: ADD_TODO,
@@ -27,9 +28,10 @@ const initialState = {
   todoList: [
     {
       id: 0,
-      title: "",
-      body: "",
-    }
+      user:'tobin',
+      title: "반갑습니다 학생",
+      content: "C반 토빈입니다",
+    },
   ]
 };
 
@@ -41,13 +43,12 @@ const todos = (state = initialState, action) => {
       return { 
         ...state,
         todoList : [...state.todoList, action.todo],
-      } 
-      
+      }
 
     case DELETE :
       return {
         ...state,
-        todoList: [...state.todoList.filter((todo) => todo.id !== action.id)]
+        todoList: [...state.todoList.filter((todo) => todo.id !== action.todo.id)]
       } 
       
 
