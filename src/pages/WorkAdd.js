@@ -1,15 +1,19 @@
 import React from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addTodo } from '../redux/modules/todos';
 import {v4 as uuidv4} from "uuid";
+
 import styled from 'styled-components';
+import { addTodo } from '../redux/modules/todos';
 
 
 const WorkAdd = () => {
   const todolist = useSelector(state=>state.todos.todoList)
-    console.log(todolist)
+  
   const dispatch = useDispatch();
+
+
+
   const [todoLists,setTodoLists] = useState({
     id: 0,
     user:"",
@@ -34,9 +38,9 @@ const WorkAdd = () => {
       todoLists.user.trim() === "" ||
       todoLists.title.trim() === "" ||
       todoLists.content.trim() === ""
-    )
-    return alert ("입력해라")
-  
+      
+    )    return alert ("입력해라")
+
     dispatch(addTodo({...todoLists,id: uuidv4()}));
     setTodoLists({
       id: 0,
@@ -44,6 +48,10 @@ const WorkAdd = () => {
       title: "",
       content: "",
     });
+
+    
+  
+ 
   };
   
 

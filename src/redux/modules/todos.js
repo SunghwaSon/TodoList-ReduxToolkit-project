@@ -1,27 +1,5 @@
-const ADD_TODO = "ADD_TODO";
-const DELETE = "DELETE";
-const TOGGLE = "TOGGLE"
-
-export const addTodo = (todo) => {
-  return {
-    type: ADD_TODO,
-    todo,
-  }
-}
-
-export const delete_todo = (todo) => {
-  return {
-    type: DELETE,
-    todo,
-  }
-}
-export const isDone_toggle = (todo) => {
-  return {
-    type: TOGGLE,
-    todo,
-  }
-}
-
+//툴킷사용
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   todoList: [
@@ -36,31 +14,21 @@ const initialState = {
 
 
 
-const todos = (state = initialState, action) => {
-  switch (action.type) {
-    case ADD_TODO :
-      return { 
-        ...state,
-        todoList : [...state.todoList, action.todo],
-      }
+export const productSlice = createSlice({
+  name:"product",
+  initialState,
+  reducers: {
+    addTodo:(state,action)=>{
+      state.todoList=[...state.todoList,action.payload]
 
-    case DELETE :
-      return {
-        ...state,
-        todoList: [...state.todoList.filter((todo) => todo.id !== action.todo.id)]
-      } 
       
+      },
+    deleteTodo:(state,action)=>{
+        state.todoList =state.todoList.filter((todo) => todo.id !== action.payload.id)
+    },
 
-    case TOGGLE : 
-      return {
-        ...state,
-        todoList : [...state.todoList.map((todo) => todo.id === action.id? 
-                    {...todo, isDone : !todo.isDone} : todo)]
-      }
+  },
+})
 
-    default:
-      return {...state}
-  }
-};
-
-export default todos;
+export const {addTodo,deleteTodo} = productSlice.actions
+export default productSlice.reducer;

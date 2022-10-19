@@ -2,7 +2,9 @@ import React from "react";
 import  styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { useSelector,useDispatch } from "react-redux";
-import {delete_todo} from '../redux/modules/todos'
+import { deleteTodo } from '../redux/modules/todos';
+//import {productActions} from '../redux/modules/todos'
+
 
 let Root = styled.div`
 width:100%;
@@ -64,7 +66,10 @@ border:0px;
 const Works = () => {
   const { todos } = useSelector((state) => state);
   const dispatch = useDispatch();
+  console.log(todos)
 
+
+console.log(todos)
   const list_box = todos.todoList.map((todo) =>
       <Div key={todo.id}>
         <Link to={`/Works/${todo.id}`}  style={{paddingLeft: 13, textDecoration: 'none',color:'black',width:'90%'}} title="집 아이콘" >
@@ -75,9 +80,7 @@ const Works = () => {
           </Link>
               <Button onClick={()=>{
                 dispatch(
-                  delete_todo(
-                    todo,
-                  )
+                  deleteTodo(todo)
                 )
                 
               }}>
