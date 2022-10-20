@@ -1,19 +1,11 @@
 {
-  "posts": [
+  "bootcamp":{"data": "이것은 db.json의 bootcamp에 대한 값 입니다!"},
+  "todos": [
     {
       "id": 1,
-      "title": "json-server",
-      "author": "typicode"
+      "user": "ㅇㅇ입니다",
+      "title": "반갑습니다!",
+      "content": "안녕하세요!"
     }
-  ],
-  "comments": [
-    {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
-    }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]  
 }

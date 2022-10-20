@@ -1,13 +1,13 @@
 import React from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addTodo } from '../redux/modules/todos';
+import { addTodo } from '../redux/modules/todosSlice';
 import {v4 as uuidv4} from "uuid";
 import styled from 'styled-components';
 
 
 const WorkAdd = () => {
-  const todolist = useSelector(state=>state.todos.todoList)
+  const todolist = useSelector(state=>state.todosSlice.todoList)
     console.log(todolist)
   const dispatch = useDispatch();
   const [todoLists,setTodoLists] = useState({
@@ -37,7 +37,7 @@ const WorkAdd = () => {
     )
     return alert ("입력해라")
   
-    dispatch(addTodo({...todoLists,id: uuidv4()}));
+    dispatch(addTodo({...todoLists, id: uuidv4()}));
     setTodoLists({
       id: 0,
       user:"",
@@ -78,7 +78,6 @@ const WorkAdd = () => {
         <button size="large">추가하기</button>
       </StAddForm>
       </StContainer>
-     
       
     )
 }

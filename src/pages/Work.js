@@ -1,25 +1,28 @@
 import React, { useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+// import {v4 as uuidv4} from "uuid";
 
 
 const Work = () => {
   const navigate = useNavigate()
   const params = useParams()
   const select = useSelector(state => state)
-  const todoList = (select.todos.todoList)
-  const todo = todoList.find(todo => todo.id === params.id)
+
+  const todoList = (select.todosSlice.todoList)
+  console.log(todoList)
+  const todo = todoList.find(todo => todo.id === params.id) //uuid 때문에 문자값이기에 Number로 안함
 
   const beforeContent = useRef(todo?.content)
   const [content, setContent] = useState(todo?.content) //todo의 내용
   const [readonly, setReadOnly] = useState(true); //true 일 때 읽기 상태
+  
   //취소
   const handleEdit = () => {
     setContent(beforeContent.current)
     setReadOnly(true)
   }
-
   return (
     <AllBox>
       <IdBtn>

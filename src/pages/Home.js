@@ -1,5 +1,5 @@
 import React from 'react';
-import  styled from 'styled-components'
+import styled from 'styled-components'
 
 import { Link } from 'react-router-dom'
 
@@ -12,9 +12,6 @@ let Rootbody = styled.div`
 let Container = styled.div`
 width:100%;
 height:800px;
-
-
-
 `
 
 let Title = styled.div`

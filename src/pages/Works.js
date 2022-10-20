@@ -1,8 +1,12 @@
-import React from "react";
+import axios from 'axios';
+import React, { useEffect } from "react";
 import  styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { useSelector,useDispatch } from "react-redux";
-import {delete_todo} from '../redux/modules/todos'
+import { deleteTodo } from '../redux/modules/todosSlice'
+// import {v4 as uuidv4} from "uuid";
+import { todoTest } from '../redux/modules/todosSlice'
+
 
 let Root = styled.div`
 width:100%;
@@ -60,12 +64,22 @@ border:0px;
 `
 
 
-
 const Works = () => {
-  const { todos } = useSelector((state) => state);
+  const { todosSlice } = useSelector((state) => state);
+  console.log(todosSlice)
   const dispatch = useDispatch();
 
-  const list_box = todos.todoList.map((todo) =>
+
+  useEffect(() => {
+    console.log('[axios]')
+    axios('http://localhost:3001/todos').then((res) => {
+          console.log('[result]', res.data)
+          dispatch(todoTest(res.data))
+        })
+  }, [] )
+  
+
+  const list_box = todosSlice.todoList.map((todo) =>
       <Div key={todo.id}>
         <Link to={`/Works/${todo.id}`}  style={{paddingLeft: 13, textDecoration: 'none',color:'black',width:'90%'}} title="집 아이콘" >
               <DivItem>
@@ -75,7 +89,7 @@ const Works = () => {
           </Link>
               <Button onClick={()=>{
                 dispatch(
-                  delete_todo(
+                  deleteTodo(
                     todo,
                   )
                 )
