@@ -1,23 +1,56 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState,useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-
+import { useDispatch } from 'react-redux';
+import {__getTodoDetail,__patchComment} from '../redux/modules/todos'
 
 const Work = () => {
+  
   const navigate = useNavigate()
   const params = useParams()
   const select = useSelector(state => state)
-  const todoList = (select.todos.todoList)
+
+  const todoList = (select.todos.todos)
+
+  
+  const dispatch = useDispatch();
+  
+
   const todo = todoList.find(todo => todo.id === params.id)
+
+
 
   const beforeContent = useRef(todo?.content)
   const [content, setContent] = useState(todo?.content) //todo의 내용
   const [readonly, setReadOnly] = useState(true); //true 일 때 읽기 상태
   //취소
+  console.log(todo?.content)
+  useEffect(() => {
+  
+  dispatch(
+    __getTodoDetail(
+      params.id
+    )
+  )    
+  }, [])
+
+
+
+
+
   const handleEdit = () => {
     setContent(beforeContent.current)
     setReadOnly(true)
+  }
+
+  const handlePatch =()=>{
+    dispatch(
+      __patchComment(
+        {content,
+        id:params.id}    
+      )
+    )
   }
 
 
@@ -29,15 +62,18 @@ const Work = () => {
         <Params_Id>id:{params.id}</Params_Id>
         <WorksBtn onClick={ () => navigate('/Works')}>이전으로</WorksBtn>
       </IdBtn>
-      <Title>{todo.title}</Title>
+      <Title>{todo?.title}</Title>
       <ContentBox>
           { readonly? ( // {상태값? (ture) : (false)}
-            <ContentBox>{content}</ContentBox> 
+
+            
+            <ContentBox>
+              {!content ? todo?.content:content}</ContentBox> 
           ) : (
             <TextBox
               rows="10" 
               maxlength="200"
-              value={content}
+              value={!content ? todo?.content:content}
               onChange={(e) => setContent(e.target.value)}
             />
           )}
@@ -53,6 +89,8 @@ const Work = () => {
             <UpdateBtn onClick={() => {
               setReadOnly(!readonly)
               beforeContent.current = content
+
+              handlePatch()
             }}>완료</UpdateBtn> 
             <UpdateBtn onClick={handleEdit}>취소</UpdateBtn>
           </>

@@ -1,19 +1,16 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {v4 as uuidv4} from "uuid";
-
 import styled from 'styled-components';
-import { addTodo } from '../redux/modules/todos';
-
+import { addTodo, __getComment } from '../redux/modules/todos';
+import {__addComment} from'../redux/modules/todos'
 
 const WorkAdd = () => {
-  const todolist = useSelector(state=>state.todos.todoList)
-  
+  const { isLoading, error, todos } = useSelector((state) => state.todos);
+
+  //console.log('구분귀분',todos)
   const dispatch = useDispatch();
-
-
-
   const [todoLists,setTodoLists] = useState({
     id: 0,
     user:"",
@@ -38,22 +35,35 @@ const WorkAdd = () => {
       todoLists.user.trim() === "" ||
       todoLists.title.trim() === "" ||
       todoLists.content.trim() === ""
-      
-    )    return alert ("입력해라")
+    )
+    return alert ("입력해라")
+  
+    //기존 dispatch(addTodo({...todoLists,id: uuidv4()}));
+    
+    
 
-    dispatch(addTodo({...todoLists,id: uuidv4()}));
+    //console.log('투두리스',todolist)
+    dispatch(
+      __addComment({...todoLists,id:uuidv4()})
+    )
+    
     setTodoLists({
       id: 0,
       user:"",
       title: "",
       content: "",
     });
-
-    
-  
- 
   };
+
   
+  useEffect(() => {
+    dispatch(
+      
+      __getComment()
+    );
+  }, [dispatch]);
+  
+
 
 
   return (
@@ -63,7 +73,7 @@ const WorkAdd = () => {
         <StInputGroup 
         type="text" 
         name="user" 
-        value={todoLists.user} 
+        value={todos.user} 
         onChange={onChangeHandler}
         placeholder="이름을 입력해주세요"
         />
@@ -71,7 +81,7 @@ const WorkAdd = () => {
         <StInputGroup 
         type="text" 
         name="title" 
-        value={todoLists.title} 
+        value={todos.title} 
         onChange={onChangeHandler} 
         placeholder="제목을 입력해주세요"
         />
@@ -79,14 +89,14 @@ const WorkAdd = () => {
         <Textarea
         type="text" 
         name="content" 
-        value={todoLists.content} 
+        value={todos.content} 
         onChange={onChangeHandler}
         placeholder="내용을 입력해주세요"
         />
         <button size="large">추가하기</button>
       </StAddForm>
       </StContainer>
-     
+
       
     )
 }

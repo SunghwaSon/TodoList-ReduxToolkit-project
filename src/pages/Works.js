@@ -1,8 +1,12 @@
-import React from "react";
+import React,{useEffect} from "react";
+import { useState } from "react";
 import  styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { useSelector,useDispatch } from "react-redux";
-import { deleteTodo } from '../redux/modules/todos';
+
+import {__addComment} from '../redux/modules/todos'
+import {__getComment} from '../redux/modules/todos'
+import {__deleteComment} from '../redux/modules/todos'
 //import {productActions} from '../redux/modules/todos'
 
 
@@ -64,13 +68,26 @@ border:0px;
 
 
 const Works = () => {
-  const { todos } = useSelector((state) => state);
+  const { isLoading, error, todos } = useSelector((state) => state.todos);
   const dispatch = useDispatch();
-  console.log(todos)
+
+  const onDeleteHandler = (id) => {
+    dispatch(
+      __deleteComment(id)
+    )
+
+  } 
+
+  useEffect(() => {
+    dispatch(
+      
+      __getComment()
+    );
+  }, [dispatch]);
 
 
-console.log(todos)
-  const list_box = todos.todoList.map((todo) =>
+
+  const list_box = todos.map((todo) =>
       <Div key={todo.id}>
         <Link to={`/Works/${todo.id}`}  style={{paddingLeft: 13, textDecoration: 'none',color:'black',width:'90%'}} title="집 아이콘" >
               <DivItem>
@@ -79,12 +96,12 @@ console.log(todos)
               </DivItem>
           </Link>
               <Button onClick={()=>{
-                dispatch(
-                  deleteTodo(todo)
-                )
-                
+
               }}>
-                  <Img src='https://cdn-icons-png.flaticon.com/512/12/12960.png'/>
+        <Img type='submit' onClick={()=>{
+                onDeleteHandler(todo.id)
+                    
+                  }} src='https://cdn-icons-png.flaticon.com/512/12/12960.png'/>
               </Button>
     </Div>
   )

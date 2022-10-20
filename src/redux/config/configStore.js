@@ -15,7 +15,7 @@ const store = createStore(rootReducer);
 
 const store = configureStore({
   reducer:{
-    todos
+    todos:todos
   },
 })
 

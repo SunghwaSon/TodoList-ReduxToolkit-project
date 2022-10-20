@@ -1,11 +1,10 @@
-import React from 'react'
+import React,{ useEffect } from 'react'
 import  styled from 'styled-components'
-//test
-import setInitalData from '../redux/modules/todos'
-//test 
+
 import { Link } from 'react-router-dom'
-import { useEffect } from 'react';
-import axios from 'axios';
+
+
+
 let Root = styled.div`
 width:100%;
 height:100%;
@@ -47,32 +46,15 @@ height:70px;
 
 
 export const Home = () => {
-//test
-  // useEffect(()=>{
-  //   console.log('[axios]'); //1
-  
-  
-  //   const response = 
-  // axios('http://localhost:3001/bootcamp')
-  //   .then((res) => {
-  //     console.log('[response]',res)
-  //     //dispatch(setInitalData(res.data))
-  //   }) //3
-    
-  //  //나중에 실행된다 fetch라는것은 pending 기다리는상태 
-  //  //onfulfilled => 실행
-  //  //onrejected  =>  거절
-  //  //cross ors => 반드시공부하기 same origin policy 개념 
-  // console.log('[response]',response) //2
-  // },[]);
-  // //테스트
 
-//test
 
   return (
+
+    
   <Root>
     <Rootbody>
       <Container>
+
         <Title>무엇을 할까요?</Title>
           <Link to={'/Work/add'}  style={{paddingLeft: 13, textDecoration: 'none',color:'black'}} title="집 아이콘" >
             <Div >할일 기록하기
